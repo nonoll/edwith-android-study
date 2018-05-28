@@ -3,10 +3,14 @@ package usefl.co.kr.pjt2_moviedetailview;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     Boolean isLiked = false;
@@ -19,6 +23,8 @@ public class MainActivity extends AppCompatActivity {
     Integer countUnLike = 1;
     Button btnUnLike;
     TextView textUnLike;
+
+    SingleLineReviewAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +40,13 @@ public class MainActivity extends AppCompatActivity {
                 isLiked = !isLiked;
 
                 if (isLiked) {
+                    countLike += 1;
+                    if (isUnLiked) {
+                        countUnLike -= 1;
+                    }
                     isUnLiked = false;
+                } else {
+                    countLike -= 1;
                 }
 
                 updateButtonUI();
@@ -50,33 +62,102 @@ public class MainActivity extends AppCompatActivity {
                 isUnLiked = !isUnLiked;
 
                 if (isUnLiked) {
+                    countUnLike += 1;
+                    if (isLiked) {
+                        countLike -= 1;
+                    }
                     isLiked = false;
+                } else {
+                    countUnLike -= 1;
                 }
 
                 updateButtonUI();
             }
         });
+
+        Button btnWrite = (Button) findViewById(R.id.btn_write);
+        Button btnMore = (Button) findViewById(R.id.btn_more);
+
+        btnWrite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "작성하기", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        btnMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getApplicationContext(), "모두보기", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+
+        adapter = new SingleLineReviewAdapter();
+        adapter.addItem(new SingleLineReviewItem("name1", "010-1234-1234", "", "", ""));
+        listView.setAdapter(adapter);
     }
 
     private void updateButtonUI() {
         if (isLiked) {
-            countLike += 1;
             btnLike.setBackgroundResource(R.drawable.ic_thumb_up_selected);
         } else {
-            countLike -= 1;
             btnLike.setBackgroundResource(R.drawable.ic_thumb_up);
         }
 
         textLike.setText(countLike.toString());
 
         if (isUnLiked) {
-            countUnLike += 1;
             btnUnLike.setBackgroundResource(R.drawable.ic_thumb_down_selected);
         } else {
-            countUnLike -= 1;
             btnUnLike.setBackgroundResource(R.drawable.ic_thumb_down);
         }
 
         textUnLike.setText(countUnLike.toString());
+    }
+
+
+    class SingleLineReviewAdapter extends BaseAdapter {
+        ArrayList<SingleLineReviewItem> items = new ArrayList<SingleLineReviewItem>();
+
+        public void addItem(SingleLineReviewItem item) {
+            items.add(item);
+        }
+
+        @Override
+        public int getCount() {
+            return items.size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return items.get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            SingleLineReviewView itemView = null;
+
+            // 최적화를 위한 처리
+            if (view == null) {
+                itemView = new SingleLineReviewView(getApplicationContext());
+            } else {
+                itemView = (SingleLineReviewView) view;
+            }
+
+            SingleLineReviewItem item = items.get(i);
+
+            itemView.setNickName(item.getNickName());
+
+            return itemView;
+        }
     }
 }
