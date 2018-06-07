@@ -6,29 +6,68 @@
 
     <ImageView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="77dp"
         android:padding="10dp"
         android:src="@drawable/user1" />
 
-    <TextView
-        android:id="@+id/nickName"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="nickName" />
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/regDate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="10분전" />
+        <TextView
+            android:id="@+id/nickName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="nickName"
+            android:textStyle="bold" />
 
-    <RatingBar
-        android:id="@+id/ratingBar"
-        style="@style/Widget.AppCompat.RatingBar.Small"
-        android:layout_width="20dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:numStars="5"
-        android:rating="5"
-        android:stepSize="5" />
+        <RelativeLayout
+            android:layout_width="130dp"
+            android:layout_height="20dp">
+
+            <TextView
+                android:id="@+id/regDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="10분전" />
+
+            <RatingBar
+                android:id="@+id/ratingBar"
+                style="@style/Widget.AppCompat.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_weight="1"
+                android:numStars="5"
+                android:rating="1"
+                android:stepSize=".5"
+                android:layout_centerVertical="true"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="적당히 재밌다. 오랜만에 잠 안오는 영화 봤네요." />
+
+        <RelativeLayout
+            android:layout_width="130dp"
+            android:layout_height="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="추천 0" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:text="신고하기" />
+        </RelativeLayout>
+
+    </LinearLayout>
 </LinearLayout>

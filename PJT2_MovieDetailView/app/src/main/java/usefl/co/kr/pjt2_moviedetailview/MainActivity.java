@@ -97,7 +97,11 @@ public class MainActivity extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listView);
 
         adapter = new SingleLineReviewAdapter();
-        adapter.addItem(new SingleLineReviewItem("name1", "010-1234-1234", "", "", ""));
+        adapter.addItem(new SingleLineReviewItem("name1", "kym**", "", "", ""));
+        adapter.addItem(new SingleLineReviewItem("name1", "kym**", "", "", ""));
+        adapter.addItem(new SingleLineReviewItem("name1", "kym**", "", "", ""));
+        adapter.addItem(new SingleLineReviewItem("name1", "kym**", "", "", ""));
+        adapter.addItem(new SingleLineReviewItem("name1", "kym**", "", "", ""));
         listView.setAdapter(adapter);
     }
 
