@@ -1,5 +1,7 @@
 package usefl.co.kr.a21_lifecycle;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -51,12 +53,26 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
 
         Toast.makeText(this, "onPause", Toast.LENGTH_LONG).show();
+
+        SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("name", "name value");
+        editor.commit();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        Toast.makeText(this, "onResume", Toast.LENGTH_LONG).show();
+        SharedPreferences pref = getSharedPreferences("pref", Activity.MODE_PRIVATE);
+        String name = "";
+
+        if (pref != null) {
+            name = pref.getString("name", "");
+        }
+
+        Toast.makeText(this, "onResume - " + name, Toast.LENGTH_LONG).show();
+
+//        Toast.makeText(this, "onResume", Toast.LENGTH_LONG).show();
     }
 }
